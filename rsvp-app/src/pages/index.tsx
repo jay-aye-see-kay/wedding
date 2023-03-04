@@ -34,7 +34,7 @@ export default function Home() {
             <input type="text" id="dietary" name="dietary" required />
           </div>
 
-          <button type="submit">Submit</button>
+          <button className="btn-primary" type="submit">Submit</button>
         </form>
       </main>
     </>
