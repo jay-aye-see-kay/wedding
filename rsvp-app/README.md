@@ -1,3 +1,14 @@
+# Notes:
+
+## setup
+
+1. Enable sheets access in google cloud: [](https://console.cloud.google.com/apis/enableflow?apiid=sheets.googleapis.com)
+2. create a service account [](https://console.cloud.google.com/apis/credentials)
+3. download a key.json for the account and save it as `key.json`
+4. add the service account's email to the google sheet you want to access
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
