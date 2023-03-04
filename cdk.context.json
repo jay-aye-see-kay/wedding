@@ -1,0 +1,10 @@
+{
+  "hosted-zone:account=622733396373:domainName=jackrose.co.nz:region=ap-southeast-2": {
+    "Id": "/hostedzone/Z34ZVSD2OWEPPR",
+    "Name": "jackrose.co.nz."
+  },
+  "hosted-zone:account=622733396373:domainName=jackrose.co.nz:region=us-east-1": {
+    "Id": "/hostedzone/Z34ZVSD2OWEPPR",
+    "Name": "jackrose.co.nz."
+  }
+}
