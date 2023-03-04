@@ -23,19 +23,25 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="names">Names</label>
-            <input type="text" id="names" name="names" required />
-          </div>
+        <form className="mt-8 m-auto card max-w-xl bg-base-100 shadow-xl" onSubmit={handleSubmit}>
+          <div className="card-body">
 
-          <div>
-            <label htmlFor="dietary">Dietary requirements</label>
-            <input type="text" id="dietary" name="dietary" required />
-          </div>
+            <label className="my-2 input-group input-group-vertical">
+              <span>Names</span>
+              <input className="input input-bordered" type="text" name="names" required />
+            </label>
 
-          <button className="btn-primary" type="submit">Submit</button>
+            <label className="my-2 input-group input-group-vertical">
+              <span>Dietary requirements</span>
+              <input className="input input-bordered" type="text" name="dietary" required />
+            </label>
+
+            <div className="my-2 card-actions justify-end">
+              <button className="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </div>
         </form>
+
       </main>
     </>
   )
