@@ -12,7 +12,8 @@ const scopes = [
 
 const bodySchema = z.object({
   names: z.string(),
-  dietary: z.string(),
+  dietary: z.string().optional(),
+  notes: z.string().optional(),
 });
 
 
@@ -38,7 +39,7 @@ export default async function handler(
     valueInputOption: 'USER_ENTERED',
     requestBody: {
       values: [
-        [body.data.names, body.data.dietary]
+        [new Date().toLocaleString("en-au"), body.data.names, body.data.dietary, body.data.notes]
       ]
     }
   })
