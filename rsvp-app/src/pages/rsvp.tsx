@@ -1,29 +1,21 @@
 import { PageWrapper } from '@/components/page-wrapper'
-import { rsvpSchema } from '@/lib/forms';
+import { RsvpSchema, rsvpSchema } from '@/lib/forms';
 import { useFormik } from "formik";
 import { toFormikValidate } from 'zod-formik-adapter';
 
 const pageTitle = "RSVP to Nora & Jack's Wedding"
 
-/** convert blank strings to undefined to make form data more semantic */
-const blankToUndefined = (values: Record<string, string>) => {
-  const newValues: Record<string, string | undefined> = {}
-  for (const [key, value] of Object.entries(values)) {
-    newValues[key] = value.length === 0 ? undefined : value
-  }
-  return newValues
-}
-
+const initialValues: RsvpSchema = { names: "", dietaries: "", notes: "", secret: "" };
 
 export default function Rsvp() {
   const formik = useFormik({
-    initialValues: { names: "", dietaries: "", notes: "", secret: "" },
+    initialValues,
     validate: toFormikValidate(rsvpSchema),
     onSubmit: async (values, { resetForm, setErrors }) => {
       const response = await fetch('/api/rsvp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
-        body: JSON.stringify(blankToUndefined(values))
+        body: JSON.stringify(values)
       })
       const responseBody = await response.json().catch(console.error)
       if (response.ok) {
