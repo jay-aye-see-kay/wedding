@@ -34,12 +34,12 @@ export function PageWrapper(props: Props) {
         </div>
       </div>
 
-      <Image
-        alt=""
-        src={eucalyptusImg}
-        className="absolute"
-        style={{ transform: "translateY(-35%) translateX(-12%) rotate(170deg)" }}
-      />
+      {/* <Image */}
+      {/*   alt="" */}
+      {/*   src={eucalyptusImg} */}
+      {/*   className="absolute" */}
+      {/*   style={{ transform: "translate(-12%, calc(150px + -45vw)) rotate(170deg)" }} */}
+      {/* /> */}
 
       <>{props.children}</>
     </>
