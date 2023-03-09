@@ -44,7 +44,7 @@ export default async function handler(
     valueInputOption: 'USER_ENTERED',
     requestBody: {
       values: [
-        [new Date().toLocaleString("en-au"), body.data.names, body.data.dietary, body.data.notes]
+        [new Date().toLocaleString("en-au"), body.names, body.dietary, body.notes]
       ]
     }
   })
