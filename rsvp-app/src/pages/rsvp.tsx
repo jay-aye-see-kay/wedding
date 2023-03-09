@@ -1,27 +1,10 @@
 import { PageWrapper } from '@/components/page-wrapper'
-import { Formik, Field, Form, useFormik } from "formik";
+import { useFormik } from "formik";
 
 const pageTitle = "RSVP to Nora & Jack's Wedding"
 const SECRET_CODE = "skippy"
 
 export default function Rsvp() {
-  const handleSubmit = async (event: any) => {
-    event.preventDefault()
-    if (event.target.secret.value !== "skippy") {
-      alert("secret code not correct, check your invite")
-      return
-    }
-    const response = await fetch('/api/rsvp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', },
-      body: JSON.stringify({
-        names: event.target.names.value,
-        dietary: event.target.dietary.value,
-      }),
-    })
-    console.log(await response.json())
-  }
-
   const formik = useFormik({
     initialValues: { names: "", dietaries: "", notes: "", secret: "" },
     validate: values => {
@@ -83,7 +66,7 @@ export default function Rsvp() {
 
         </div>
         <div className="my-4 mx-1 flex justify-end">
-          <button className="btn btn-primary" type="submit">Submit RSVP</button>
+          <button className="btn" type="submit">Submit RSVP</button>
         </div>
       </form>
     </PageWrapper>
@@ -98,24 +81,30 @@ type InputProps = {
   formik: ReturnType<typeof useFormik<any>>
 }
 function Input(props: InputProps) {
+  const touched = props.formik.touched[props.name]
   const errorStr = props.formik.errors[props.name] as string
-  const extraClasses = []
-  if (props.type === "textarea") extraClasses.push("min-h-[5rem]")
-  if (errorStr) extraClasses.push("input-error")
+
+  const inputProps = {
+    className: "input textarea w-full",
+    type: props.type ?? "text",
+    name: props.name,
+    onChange: props.formik.handleChange,
+    onBlur: props.formik.handleBlur,
+    value: props.formik.values[props.name],
+    placeholder: props.placeholder,
+  }
+  if (errorStr && touched) {
+    inputProps.className += " input-error"
+  }
 
   return (
     <div className="form-control">
       <label className="label flex flex-col items-start">
         <span className="label-text text-base">{props.label}</span>
-        <input
-          className={["input textarea w-full", ...extraClasses].join(" ")}
-          type={props.type ?? "text"}
-          name={props.name}
-          onChange={props.formik.handleChange}
-          value={props.formik.values[props.name]}
-          placeholder={props.placeholder}
-        />
-        <span className="label-text text-error">{errorStr || " "}</span>
+        {props.type === "textarea"
+          ? <textarea {...inputProps} />
+          : <input {...inputProps} />}
+        <span className="label-text text-error">{touched && errorStr}&nbsp;</span>
       </label>
     </div>
   )

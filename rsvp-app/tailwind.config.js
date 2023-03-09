@@ -6,15 +6,15 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
-  },
-  theme: {
     extend: {
       fontFamily: {
         sans: ['var(--font-parisienne)', ...fontFamily.sans],
         serif: ['var(--font-lora)', ...fontFamily.serif],
       },
     },
+  },
+  daisyui: {
+    themes: ["garden"],
   },
 
   plugins: [require("daisyui")],
