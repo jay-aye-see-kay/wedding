@@ -11,7 +11,31 @@
 html,
 body {
   max-width: 100vw;
+}
+
+.parallax {
+  perspective: 1px;
+  height: 100vh;
   overflow-x: hidden;
-  background-color: rgb(245 245 245);
-  height: 100%;
+  overflow-y: auto;
+}
+
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.parallax__layer--base {
+  transform: translateZ(0);
+}
+
+.parallax__layer--back {
+  transform: translateZ(-2px) scale(3);
+}
+
+.parallax__layer--back2 {
+  transform: translateZ(-3px) scale(4);
 }

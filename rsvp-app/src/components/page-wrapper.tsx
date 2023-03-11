@@ -20,28 +20,25 @@ export function PageWrapper(props: Props) {
         <link rel="icon" href="/favicon.ico" /> {/* TODO: add favicon*/}
       </Head>
 
-      <div className="navbar bg-base-100">
-        <div className="flex-1"></div>
-        <div className="flex-none">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link href="/">About</Link>
-            </li>
-            <li>
-              <Link href="/rsvp">RSVP</Link>
-            </li>
-          </ul>
+      <main className="parallax">
+        <div className="parallax__layer parallax__layer--base">{props.children}</div>
+        <div className="parallax__layer parallax__layer--back">
+          <div>&nbsp;</div>
+          <Image
+            alt=""
+            src={eucalyptusImg}
+            style={{ transform: "translate(-12%, calc(150px + -45vw)) rotate(170deg)" }}
+          />
         </div>
-      </div>
-
-      {/* <Image */}
-      {/*   alt="" */}
-      {/*   src={eucalyptusImg} */}
-      {/*   className="absolute" */}
-      {/*   style={{ transform: "translate(-12%, calc(150px + -45vw)) rotate(170deg)" }} */}
-      {/* /> */}
-
-      <>{props.children}</>
+        <div className="parallax__layer parallax__layer--back2">
+          <div>&nbsp;</div>
+          <Image
+            alt=""
+            src={eucalyptusImg}
+            style={{ transform: "translate(30%, calc(150px + -50vw)) rotate(30deg)" }}
+          />
+        </div>
+      </main>
     </>
   )
 }
