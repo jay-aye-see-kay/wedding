@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import eucalyptusImg from "../../wedding-images/eucalyptus-2.png"
 
 const defaultPageTitle = "Nora & Jack's Wedding"
@@ -21,7 +20,6 @@ export function PageWrapper(props: Props) {
       </Head>
 
       <main className="parallax">
-        <div className="parallax__layer parallax__layer--base">{props.children}</div>
         <div className="parallax__layer parallax__layer--back">
           <div>&nbsp;</div>
           <Image
@@ -38,6 +36,7 @@ export function PageWrapper(props: Props) {
             style={{ transform: "translate(30%, calc(150px + -50vw)) rotate(30deg)" }}
           />
         </div>
+        <div className="parallax__layer parallax__layer--base">{props.children}</div>
       </main>
     </>
   )
