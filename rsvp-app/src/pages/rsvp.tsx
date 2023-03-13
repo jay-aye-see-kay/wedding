@@ -1,6 +1,7 @@
 import { PageWrapper } from '@/components/page-wrapper'
 import { RsvpSchema, rsvpSchema } from '@/lib/forms';
 import { useFormik } from "formik";
+import Link from 'next/link';
 import { toFormikValidate } from 'zod-formik-adapter';
 
 const pageTitle = "RSVP to Nora & Jack's Wedding"
@@ -35,39 +36,42 @@ export default function Rsvp() {
 
   return (
     <PageWrapper pageTitle={pageTitle}>
-      <form className="mt-8 m-auto max-w-xl" onSubmit={formik.handleSubmit}>
+      <div className="mt-8 m-auto max-w-xl px-2 py-4 rounded-lg bg-white">
+        <form onSubmit={formik.handleSubmit}>
 
-        <div className="">
-          <Input
-            label="Names"
-            name="names"
-            placeholder="names of attending"
-            formik={formik}
-          />
-          <Input
-            label="Dietary requirements (optional)"
-            name="dietaries"
-            formik={formik}
-          />
-          <Input
-            label="Any other notes (optional)"
-            name="notes"
-            type="textarea"
-            formik={formik}
-            className="min-h-[100px] max-h-[200px]"
-          />
-          <Input
-            label="Secret code"
-            placeholder="enter the secret code from your invite"
-            name="secret"
-            formik={formik}
-          />
+          <div className="">
+            <Input
+              label="Names"
+              name="names"
+              placeholder="names of attending"
+              formik={formik}
+            />
+            <Input
+              label="Dietary requirements (optional)"
+              name="dietaries"
+              formik={formik}
+            />
+            <Input
+              label="Any other notes (optional)"
+              name="notes"
+              type="textarea"
+              formik={formik}
+              className="min-h-[100px] max-h-[200px]"
+            />
+            <Input
+              label="Secret code"
+              placeholder="enter the secret code from your invite"
+              name="secret"
+              formik={formik}
+            />
+          </div>
 
-        </div>
-        <div className="my-4 mx-1 flex justify-end">
-          <button className="btn" type="submit">Submit RSVP</button>
-        </div>
-      </form>
+          <div className="my-4 mx-1 flex justify-end space-x-4">
+            <Link href="/" className="btn btn-outline">Cancel</Link>
+            <button className="btn" type="submit">Submit RSVP</button>
+          </div>
+        </form>
+      </div>
     </PageWrapper>
   )
 }

@@ -15,9 +15,9 @@ pnpm dev
 ## Still todo
 
 - [ ] get some nice leaves/flowers to overlay so it looks nice
-- [ ] make the floral overlay scroll slower than the rest of the page
-- [ ] get rid of the nav bar, just use buttons on each page to link back and forth
-- [ ] the RSVP form should have a cancel/back button
+- [x] make the floral overlay scroll slower than the rest of the page
+- [x] get rid of the nav bar, just use buttons on each page to link back and forth
+- [x] the RSVP form should have a cancel/back button
 - [ ] the RSVP form should have a loading state
 - [ ] the RSVP form have a success message (and maybe redirect/hide the form)
 
