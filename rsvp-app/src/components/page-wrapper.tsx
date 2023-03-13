@@ -17,7 +17,7 @@ export function PageWrapper(props: Props) {
         <title>{props.pageTitle ?? defaultPageTitle}</title>
         <meta name="description" content={defaultPageTitle} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" /> {/* TODO: add favicon*/}
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="parallax">
