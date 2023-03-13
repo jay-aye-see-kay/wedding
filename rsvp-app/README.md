@@ -19,7 +19,10 @@ pnpm dev
 - [x] get rid of the nav bar, just use buttons on each page to link back and forth
 - [x] the RSVP form should have a cancel/back button
 - [x] the RSVP form should have a loading state
-- [ ] the RSVP form have a success message (and maybe redirect/hide the form)
+- [x] the RSVP form have a success message (and maybe redirect/hide the form)
+- [ ] add fields to the RSVP form
+  - [ ] best contact
+  - [ ] a better "names" field? maybe on that adds more? maybe not, maybe just a textarea?
 
 ## How Google sheets was setup
 

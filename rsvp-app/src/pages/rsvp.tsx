@@ -2,6 +2,7 @@ import { PageWrapper } from '@/components/page-wrapper';
 import { RsvpSchema, rsvpSchema } from '@/lib/forms';
 import { useFormik } from "formik";
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 import { toFormikValidate } from 'zod-formik-adapter';
 
 const pageTitle = "RSVP to Nora & Jack's Wedding"
@@ -9,10 +10,12 @@ const pageTitle = "RSVP to Nora & Jack's Wedding"
 const initialValues: RsvpSchema = { names: "", dietaries: "", notes: "", secret: "" };
 
 export default function Rsvp() {
+  const router = useRouter();
+
   const formik = useFormik({
     initialValues,
     validate: toFormikValidate(rsvpSchema),
-    onSubmit: async (values, { resetForm, setErrors }) => {
+    onSubmit: async (values, { setErrors }) => {
       const response = await fetch('/api/rsvp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
@@ -20,8 +23,7 @@ export default function Rsvp() {
       })
       const responseBody = await response.json().catch(console.error)
       if (response.ok) {
-        // TODO loading and success messages
-        resetForm()
+        router.push("/rsvp/success")
       } else if (
         response.status === 400 &&
         "data" in responseBody &&
