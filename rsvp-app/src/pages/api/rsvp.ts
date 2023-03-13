@@ -4,7 +4,11 @@ import { rsvpSchema } from '@/lib/forms';
 import { toFormikValidate } from 'zod-formik-adapter';
 import { appendRow } from '@/lib/google-sheets';
 
+/** secret code to give out on invites to prevent spam submissions */
 const SECRET_CODE = "skippy"
+
+/** alternate secret code for playing with the form in production without sending data to the real sheet */
+const TESTING_CODE = "test"
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,10 +19,14 @@ export default async function handler(
     return res.status(400).json({ data: { formErrors } })
   }
   const body = rsvpSchema.parse(req.body)
-  if (body.secret !== SECRET_CODE) {
+  if (body.secret !== SECRET_CODE && body.secret !== TESTING_CODE) {
     return res.status(400).json({ data: { formErrors: { secret: "This secret code is incorrect, check the bottom of your invite" } } })
   }
 
-  await appendRow([new Date().toLocaleString("en-au"), body.names, body.dietaries, body.notes])
+  const dbEnvironment = body.secret === TESTING_CODE
+    ? "development"
+    : process.env.NODE_ENV
+
+  await appendRow([new Date().toLocaleString("en-au"), body.names, body.dietaries, body.notes], dbEnvironment)
   return res.status(200).json({ data: {} })
 }
