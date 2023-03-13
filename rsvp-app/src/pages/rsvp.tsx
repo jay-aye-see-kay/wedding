@@ -1,4 +1,4 @@
-import { PageWrapper } from '@/components/page-wrapper'
+import { PageWrapper } from '@/components/page-wrapper';
 import { RsvpSchema, rsvpSchema } from '@/lib/forms';
 import { useFormik } from "formik";
 import Link from 'next/link';
@@ -36,7 +36,7 @@ export default function Rsvp() {
 
   return (
     <PageWrapper pageTitle={pageTitle}>
-      <div className="mt-8 m-auto max-w-xl px-2 py-4 rounded-lg bg-white">
+      <div className="relative mt-8 m-auto max-w-xl px-2 py-4 rounded-lg bg-white">
         <form onSubmit={formik.handleSubmit}>
 
           <div className="">
@@ -67,10 +67,19 @@ export default function Rsvp() {
           </div>
 
           <div className="my-4 mx-1 flex justify-end space-x-4">
-            <Link href="/" className="btn btn-outline">Cancel</Link>
-            <button className="btn" type="submit">Submit RSVP</button>
+            {!formik.isSubmitting ? (
+              <>
+                <Link href="/" className="btn btn-outline">Cancel</Link>
+                <button className="btn" type="submit">Submit RSVP</button>
+              </>
+            ) : (
+              <>
+                <button className="btn loading" disabled>Loading</button>
+              </>
+            )}
           </div>
         </form>
+
       </div>
     </PageWrapper>
   )
@@ -96,6 +105,7 @@ function Input(props: InputProps) {
     onBlur: props.formik.handleBlur,
     value: props.formik.values[props.name],
     placeholder: props.placeholder,
+    disabled: props.formik.isSubmitting,
   }
   if (errorStr && touched) {
     inputProps.className += " input-error"
