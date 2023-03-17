@@ -20,11 +20,12 @@ pnpm dev
 - [x] the RSVP form should have a cancel/back button
 - [x] the RSVP form should have a loading state
 - [x] the RSVP form have a success message (and maybe redirect/hide the form)
-- [ ] add fields to the RSVP form
-  - [ ] a yes/no at the start
-  - [ ] a paragraph at the top of both variants (inc the soft no kids bit)
-  - [ ] best contact (email)
-  - [ ] a better "names" field? maybe on that adds more? maybe not, maybe just a textarea?
+- [x] add fields to the RSVP form
+  - [x] a yes/no at the start
+  - [x] a paragraph at the top of both variants (inc the soft no kids bit)
+  - [x] best contact (email)
+  - [x] a better "names" field? maybe on that adds more? maybe not, maybe just a textarea?
+  - [ ] swap the "secret code" for a simple puzzle (like a captcha)
 
 ## How Google sheets was setup
 

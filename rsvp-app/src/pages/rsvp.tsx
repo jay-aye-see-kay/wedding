@@ -1,6 +1,7 @@
+import { Input } from "@/components/form-input";
 import { PageWrapper } from "@/components/page-wrapper";
-import { RsvpSchema, rsvpSchema } from "@/lib/forms";
-import { useFormik } from "formik";
+import { rsvpNoSchema, RsvpSchema, rsvpSchema } from "@/lib/forms";
+import { FormikConfig, useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -8,132 +9,120 @@ import { toFormikValidate } from "zod-formik-adapter";
 
 const pageTitle = "RSVP to Nora & Jack's Wedding";
 
-const initialValues: RsvpSchema = {
+const initialYesValues: RsvpSchema = {
+  coming: "yes",
   names: "",
+  email: "",
   dietaries: "",
   notes: "",
   secret: "",
 };
 
+const initialNoValues: RsvpSchema = {
+  coming: "no",
+  names: "",
+  notes: "",
+  secret: "",
+};
+
+function makeOnSubmit(
+  router: any,
+  coming: boolean
+): FormikConfig<RsvpSchema>["onSubmit"] {
+  return async function (values, { setErrors }) {
+    const response = await fetch("/api/rsvp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const responseBody = await response.json().catch(console.error);
+    if (response.ok) {
+      router.push(coming ? "/rsvp/success" : "/rsvp/no-success");
+    } else if (
+      response.status === 400 &&
+      "data" in responseBody &&
+      "formErrors" in responseBody.data
+    ) {
+      setErrors(responseBody.data.formErrors);
+    } else {
+      alert("There was an issue with RSVP please email us");
+    }
+  };
+}
+
 export default function Rsvp() {
   const [answer, setAnswer] = useState<boolean>();
+  const answerYes = () => setAnswer(true);
+  const answerNo = () => setAnswer(false);
+
   return (
     <PageWrapper pageTitle={pageTitle}>
       <div className="relative mt-8 m-auto max-w-xl px-2 py-4 rounded-lg bg-white">
-        {answer !== undefined ? (
-          answer ? (
-            <YesForm />
-          ) : (
-            <NoForm />
-          )
-        ) : (
+        {answer === undefined ? (
           <div className="my-4 text-center">
-            <p className="mb-8">{"Can you make it?"}</p>
+            <p className="mb-8">
+              {"Will you be attending our wedding celebrations?"}
+            </p>
             <div className="flex justify-center space-x-4">
-              <button className="btn" onClick={() => setAnswer(true)}>
+              <button className="btn" onClick={answerYes}>
                 Yes
               </button>
-              <button className="btn" onClick={() => setAnswer(false)}>
+              <button className="btn" onClick={answerNo}>
                 No
               </button>
             </div>
           </div>
+        ) : answer ? (
+          <YesForm />
+        ) : (
+          <NoForm />
         )}
       </div>
     </PageWrapper>
   );
 }
 
-type InputProps = {
-  type?: React.HTMLInputTypeAttribute;
-  label: string;
-  name: string;
-  className?: string;
-  placeholder?: string;
-  formik: ReturnType<typeof useFormik<any>>;
-};
-function Input(props: InputProps) {
-  const touched = props.formik.touched[props.name];
-  const errorStr = props.formik.errors[props.name] as string;
-
-  const inputProps = {
-    className: `${props.className ?? ""} input textarea w-full`,
-    type: props.type ?? "text",
-    name: props.name,
-    onChange: props.formik.handleChange,
-    onBlur: props.formik.handleBlur,
-    value: props.formik.values[props.name],
-    placeholder: props.placeholder,
-    disabled: props.formik.isSubmitting,
-  };
-  if (errorStr && touched) {
-    inputProps.className += " input-error";
-  }
-
-  return (
-    <div className="form-control">
-      <label className="label flex flex-col items-start">
-        <span className="label-text text-base">{props.label}</span>
-        {props.type === "textarea" ? (
-          <textarea {...inputProps} />
-        ) : (
-          <input {...inputProps} />
-        )}
-        <span className="label-text text-error">
-          {touched && errorStr}&nbsp;
-        </span>
-      </label>
-    </div>
-  );
-}
-
 function YesForm() {
   const router = useRouter();
-
   const formik = useFormik({
-    initialValues,
+    initialValues: initialYesValues,
     validate: toFormikValidate(rsvpSchema),
-    onSubmit: async (values, { setErrors }) => {
-      const response = await fetch("/api/rsvp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const responseBody = await response.json().catch(console.error);
-      if (response.ok) {
-        router.push("/rsvp/success");
-      } else if (
-        response.status === 400 &&
-        "data" in responseBody &&
-        "formErrors" in responseBody.data
-      ) {
-        setErrors(responseBody.data.formErrors);
-      } else {
-        alert("There was an issue with RSVP please email us");
-      }
-    },
+    onSubmit: makeOnSubmit(router, true),
   });
-
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form noValidate onSubmit={formik.handleSubmit}>
+      <div className="flex flex-col items-center text-center space-x-4 space-y-4 mt-4 mb-8">
+        <p>{"Great! We are so excited to celebrate with you."}</p>
+        <p>
+          {
+            "But first we need to let you know, that we would prefer to celebrate without children in attendance. We understand that it is not always possible to leave children at home, so please reach out to first via jack.and.nora@jackrose.co.nz"
+          }
+        </p>
+      </div>
+
       <div className="">
-        <div>
-          <p>no kids!</p>
-        </div>
+        <input hidden name="coming" value="yes" onChange={() => {}} />
 
         <Input
-          label="Names"
+          label="Full names of everyone attending"
           name="names"
-          placeholder="names of attending"
+          type="textarea"
+          className="min-h-[100px] max-h-[200px]"
           formik={formik}
         />
         <Input
-          label="Dietary requirements (optional)"
+          label="Best contact email"
+          name="email"
+          type="email"
+          formik={formik}
+        />
+        <Input
+          label="Any dietary requirements that we need to know about, and to whom do they apply? (optional)"
           name="dietaries"
           formik={formik}
         />
         <Input
-          label="Any other notes (optional)"
+          label="Anything else you would like to let us know (optional)"
           name="notes"
           type="textarea"
           formik={formik}
@@ -158,11 +147,9 @@ function YesForm() {
             </button>
           </>
         ) : (
-          <>
-            <button className="btn loading" disabled>
-              Loading
-            </button>
-          </>
+          <button className="btn loading" disabled>
+            Loading
+          </button>
         )}
       </div>
     </form>
@@ -171,38 +158,28 @@ function YesForm() {
 
 function NoForm() {
   const router = useRouter();
-
   const formik = useFormik({
-    initialValues,
-    validate: toFormikValidate(rsvpSchema),
-    onSubmit: async (values, { setErrors }) => {
-      const response = await fetch("/api/rsvp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const responseBody = await response.json().catch(console.error);
-      if (response.ok) {
-        router.push("/rsvp/success");
-      } else if (
-        response.status === 400 &&
-        "data" in responseBody &&
-        "formErrors" in responseBody.data
-      ) {
-        setErrors(responseBody.data.formErrors);
-      } else {
-        alert("There was an issue with RSVP please email us");
-      }
-    },
+    initialValues: initialNoValues,
+    validate: toFormikValidate(rsvpNoSchema as any),
+    onSubmit: makeOnSubmit(router, false),
   });
-
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div className="">
-        <div>
-          <p>{"We're sorry to hear that"}</p>
-        </div>
+    <form noValidate onSubmit={formik.handleSubmit}>
+      <div className="text-center mt-4 mb-8">
+        <p>
+          We are sorry to hear that and you will be missed at the celebrations
+        </p>
+      </div>
 
+      <div className="">
+        <input hidden name="coming" value="no" onChange={() => {}} />
+
+        <Input
+          label="Names"
+          name="names"
+          placeholder="names of attending"
+          formik={formik}
+        />
         <Input
           label="Would you like to leave a note? (optional)"
           name="notes"
