@@ -9,6 +9,9 @@ import { toFormikValidate } from "zod-formik-adapter";
 
 const pageTitle = "RSVP to Nora & Jack's Wedding";
 
+const secretQuestion =
+  "To prove you're human, what colour is a traditional wedding dress?";
+
 const initialYesValues: RsvpSchema = {
   coming: "yes",
   names: "",
@@ -128,12 +131,7 @@ function YesForm() {
           formik={formik}
           className="min-h-[100px] max-h-[200px]"
         />
-        <Input
-          label="Secret code"
-          placeholder="enter the secret code from your invite"
-          name="secret"
-          formik={formik}
-        />
+        <Input label={secretQuestion} name="secret" formik={formik} />
       </div>
 
       <div className="my-4 mx-1 flex justify-end space-x-4">
@@ -174,12 +172,7 @@ function NoForm() {
       <div className="">
         <input hidden name="coming" value="no" onChange={() => {}} />
 
-        <Input
-          label="Names"
-          name="names"
-          placeholder="names of attending"
-          formik={formik}
-        />
+        <Input label="Names on the invite" name="names" formik={formik} />
         <Input
           label="Would you like to leave a note? (optional)"
           name="notes"
@@ -187,12 +180,7 @@ function NoForm() {
           formik={formik}
           className="min-h-[100px] max-h-[200px]"
         />
-        <Input
-          label="Secret code"
-          placeholder="enter the secret code from your invite"
-          name="secret"
-          formik={formik}
-        />
+        <Input label={secretQuestion} name="secret" formik={formik} />
       </div>
 
       <div className="my-4 mx-1 flex justify-end space-x-4">

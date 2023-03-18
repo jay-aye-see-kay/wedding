@@ -4,8 +4,9 @@ import { rsvpSchema } from "@/lib/forms";
 import { toFormikValidate } from "zod-formik-adapter";
 import { appendRow } from "@/lib/google-sheets";
 
-/** secret code to give out on invites to prevent spam submissions */
-const SECRET_CODE = "skippy";
+/** secret answer to prevent spam submissions */
+const SECRET_CODE = "white";
+const SECRET_CODE_ALT = "ivory";
 
 /** alternate secret code for playing with the form in production without sending data to the real sheet */
 const TESTING_CODE = "test";
@@ -19,12 +20,16 @@ export default async function handler(
     return res.status(400).json({ data: { formErrors } });
   }
   const body = rsvpSchema.parse(req.body);
-  if (body.secret !== SECRET_CODE && body.secret !== TESTING_CODE) {
+  if (
+    body.secret !== SECRET_CODE &&
+    body.secret !== SECRET_CODE_ALT &&
+    body.secret !== TESTING_CODE
+  ) {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     return res.status(400).json({
       data: {
         formErrors: {
-          secret:
-            "This secret code is incorrect, check the bottom of your invite",
+          secret: "That's not quite right, are you sure you're human?",
         },
       },
     });

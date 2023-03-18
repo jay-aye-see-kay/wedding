@@ -7,21 +7,13 @@ export const rsvpYesSchema = z.object({
   email: z.string().trim().min(1, "A email is required"),
   dietaries: z.string(),
   notes: z.string(),
-  secret: z
-    .string()
-    .trim()
-    .toLowerCase()
-    .min(1, "This secret code is required, check the bottom of your invite"),
+  secret: z.string().trim().toLowerCase().min(1, "This answer is required"),
 });
 export const rsvpNoSchema = z.object({
   coming: z.literal("no"),
   names: z.string().trim().min(1, "Name(s) are required"),
   notes: z.string(),
-  secret: z
-    .string()
-    .trim()
-    .toLowerCase()
-    .min(1, "This secret code is required, check the bottom of your invite"),
+  secret: z.string().trim().toLowerCase().min(1, "This answer is required"),
 });
 export const rsvpSchema = z.union([rsvpYesSchema, rsvpNoSchema]);
 
