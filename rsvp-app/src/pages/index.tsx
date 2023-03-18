@@ -1,7 +1,7 @@
-import { PageWrapper } from '@/components/page-wrapper'
-import Link from 'next/link'
+import { PageWrapper } from "@/components/page-wrapper";
+import Link from "next/link";
 
-const pageTitle = "Nora & Jack's Wedding"
+const pageTitle = "Nora & Jack's Wedding";
 
 export default function Home() {
   return (
@@ -12,10 +12,11 @@ export default function Home() {
         <p className="mt-1">Healesville Sanctuary</p>
 
         <div className="flex items-center my-6 space-x-4">
-          <Link href="/" className="btn btn-outline">More info</Link>
-          <Link href="/rsvp" className="btn btn-outline">RSVP</Link>
+          <Link href="/rsvp" className="btn">
+            📩 RSVP
+          </Link>
         </div>
       </div>
     </PageWrapper>
-  )
+  );
 }

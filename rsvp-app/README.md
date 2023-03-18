@@ -25,7 +25,7 @@ pnpm dev
   - [x] a paragraph at the top of both variants (inc the soft no kids bit)
   - [x] best contact (email)
   - [x] a better "names" field? maybe on that adds more? maybe not, maybe just a textarea?
-  - [ ] swap the "secret code" for a simple puzzle (like a captcha)
+  - [x] swap the "secret code" for a simple puzzle (like a captcha)
 
 ## How Google sheets was setup
 
