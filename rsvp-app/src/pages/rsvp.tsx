@@ -95,11 +95,8 @@ function YesForm() {
   return (
     <form noValidate onSubmit={formik.handleSubmit}>
       <div className="flex flex-col items-center text-center space-x-4 space-y-4 mt-4 mb-8">
-        <p>{"Great! We are so excited to celebrate with you."}</p>
-        <p>
-          {
-            "But first we need to let you know, that we would prefer to celebrate without children in attendance. We understand that it is not always possible to leave children at home, so please reach out to first via jack.and.nora@jackrose.co.nz"
-          }
+        <p className="text-xl">
+          {"Great! We are so excited to celebrate with you."}
         </p>
       </div>
 
@@ -111,6 +108,7 @@ function YesForm() {
           name="names"
           type="textarea"
           className="min-h-[100px] max-h-[200px]"
+          underNote="We have limited space at the venue so please no plus ones or children without talking to us first. Thanks for you understanding."
           formik={formik}
         />
         <Input
@@ -164,7 +162,7 @@ function NoForm() {
   return (
     <form noValidate onSubmit={formik.handleSubmit}>
       <div className="text-center mt-4 mb-8">
-        <p>
+        <p className="text-xl">
           We are sorry to hear that and you will be missed at the celebrations
         </p>
       </div>

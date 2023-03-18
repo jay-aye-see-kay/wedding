@@ -6,10 +6,7 @@ const pageTitle = "RSVP to Nora & Jack's Wedding";
 export default function Rsvp() {
   return (
     <PageWrapper pageTitle={pageTitle}>
-      <div className="relative mt-8 m-auto max-w-xl px-6 py-4 rounded-lg bg-white text-center">
-        <p className="text-lg mt-4 mb-8">
-          {"We're sorry you couldn't make it."}
-        </p>
+      <div className="mt-8 m-auto max-w-xl px-6 py-4 rounded-lg bg-white text-center">
         <p>
           If you need to change your response or have any other question send us
           an email:{" "}

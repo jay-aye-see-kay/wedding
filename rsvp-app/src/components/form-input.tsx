@@ -6,6 +6,7 @@ type Props = {
   name: string;
   className?: string;
   placeholder?: string;
+  underNote?: string;
   formik: ReturnType<typeof useFormik<any>>;
 };
 
@@ -35,6 +36,9 @@ export function Input(props: Props) {
           <textarea {...inputProps} />
         ) : (
           <input {...inputProps} />
+        )}
+        {!props.underNote ? null : (
+          <p className="text-sm text-gray-500 italic">{props.underNote}</p>
         )}
         <span className="label-text text-error">
           {touched && errorStr}&nbsp;
