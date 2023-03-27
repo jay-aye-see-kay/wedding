@@ -108,7 +108,7 @@ function YesForm() {
           name="names"
           type="textarea"
           className="min-h-[100px] max-h-[200px]"
-          underNote="We have limited space at the venue so please no plus ones or children without talking to us first. Thanks for you understanding."
+          underNote="We have limited space at the venue so please no plus ones or children without talking to us first. Thanks for your understanding."
           formik={formik}
         />
         <Input

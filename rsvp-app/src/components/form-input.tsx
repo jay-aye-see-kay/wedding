@@ -38,7 +38,7 @@ export function Input(props: Props) {
           <input {...inputProps} />
         )}
         {!props.underNote ? null : (
-          <p className="text-sm text-gray-500 italic">{props.underNote}</p>
+          <p className="text-gray-700 italic">{props.underNote}</p>
         )}
         <span className="label-text text-error">
           {touched && errorStr}&nbsp;
