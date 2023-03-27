@@ -108,7 +108,6 @@ function YesForm() {
           name="names"
           type="textarea"
           className="min-h-[100px] max-h-[200px]"
-          underNote="We have limited space at the venue so please no plus ones or children without talking to us first. Thanks for your understanding."
           formik={formik}
         />
         <Input
@@ -130,6 +129,22 @@ function YesForm() {
           className="min-h-[100px] max-h-[200px]"
         />
         <Input label={secretQuestion} name="secret" formik={formik} />
+      </div>
+
+      <div className="px-2">
+        <div className="divider text-xl mx-4 mb-8">~</div>
+        <p>
+          We have limited space at the venue so please no plus ones or children
+          without talking to us first. Thanks for your understanding.
+        </p>
+        <div className="divider text-xl mx-4 my-8">~</div>
+        <p>
+          The gift of your company is all we ask for on our wedding day,
+          especially for those traveling a long distance to be with us. Should
+          you wish to gift us something a contribution to our honeymoon fund it
+          would be appreciated.
+        </p>
+        <div className="divider text-xl mx-4 my-8">~</div>
       </div>
 
       <div className="my-4 mx-1 flex justify-end space-x-4">
