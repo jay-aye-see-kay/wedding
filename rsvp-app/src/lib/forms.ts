@@ -4,7 +4,7 @@ import z from "zod";
 export const rsvpYesSchema = z.object({
   coming: z.literal("yes"),
   names: z.string().trim().min(1, "Name(s) are required"),
-  email: z.string().trim().min(1, "A email is required"),
+  email: z.string().trim().min(1, "An email is required"),
   dietaries: z.string(),
   notes: z.string(),
   secret: z.string().trim().toLowerCase().min(1, "This answer is required"),
