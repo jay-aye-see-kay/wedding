@@ -11,10 +11,14 @@ export default function Home() {
         <p className="mt-4">4th of November 2023</p>
         <p className="mt-1">Healesville Sanctuary</p>
 
-        <div className="flex items-center my-6 space-x-4">
-          <Link href="/rsvp" className="btn">
-            📩 RSVP
-          </Link>
+        <div className="my-6">
+          <p>
+            Email us at{" "}
+            <a className="link" href="mailto:jack.and.nora@jackrose.co.nz">
+              jack.and.nora@jackrose.co.nz
+            </a>{" "}
+            if you need to update your RSVP
+          </p>
         </div>
       </div>
     </PageWrapper>
